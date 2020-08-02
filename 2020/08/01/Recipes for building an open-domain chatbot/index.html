@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="generator" content="Hexo 4.2.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Recipes for building an open-domain chatbot - Jim Blog</title><meta description="2020年4月30日，Facebook 的人工智能和机器学习部门 Facebook AI Research（FAIR）详细介绍了一个名为 Blender 的综合人工智能聊天机器人框架。 FAIR 声称，目前可以在 GitHub 上以开源方式获得的 Blender，是有史以来最强大的开放域聊天机器人，它比生成对话的现有方法更有“人情味”。 FAIR 表示，Blender 是多年研究的巅峰之作，它将移"><meta property="og:type" content="blog"><meta property="og:title" content="Recipes for building an open-domain chatbot"><meta property="og:url" content="http://yoursite.com/2020/08/01/Recipes%20for%20building%20an%20open-domain%20chatbot/"><meta property="og:site_name" content="Jim Blog"><meta property="og:description" content="2020年4月30日，Facebook 的人工智能和机器学习部门 Facebook AI Research（FAIR）详细介绍了一个名为 Blender 的综合人工智能聊天机器人框架。 FAIR 声称，目前可以在 GitHub 上以开源方式获得的 Blender，是有史以来最强大的开放域聊天机器人，它比生成对话的现有方法更有“人情味”。 FAIR 表示，Blender 是多年研究的巅峰之作，它将移"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://yoursite.com/img/og_image.png"><meta property="article:published_time" content="2020-07-31T16:20:15.000Z"><meta property="article:modified_time" content="2020-08-02T13:03:27.332Z"><meta property="article:author" content="Jim Xiong"><meta property="article:tag" content="Facebook"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://yoursite.com/2020/08/01/Recipes%20for%20building%20an%20open-domain%20chatbot/"},"headline":"Jim Blog","image":["http://yoursite.com/img/og_image.png"],"datePublished":"2020-07-31T16:20:15.000Z","dateModified":"2020-08-02T13:03:27.332Z","author":{"@type":"Person","name":"Jim Xiong"},"description":"2020年4月30日，Facebook 的人工智能和机器学习部门 Facebook AI Research（FAIR）详细介绍了一个名为 Blender 的综合人工智能聊天机器人框架。 FAIR 声称，目前可以在 GitHub 上以开源方式获得的 Blender，是有史以来最强大的开放域聊天机器人，它比生成对话的现有方法更有“人情味”。 FAIR 表示，Blender 是多年研究的巅峰之作，它将移"}</script><link rel="canonical" href="http://yoursite.com/2020/08/01/Recipes%20for%20building%20an%20open-domain%20chatbot/"><link rel="icon" href="/img/blog.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css"><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/panda.jpg" alt="Jim Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Findme on GitHub" href="https://github.com/JimXiongGM"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2020-07-31T16:20:15.000Z" title="2020-07-31T16:20:15.000Z">2020-08-01</time><span class="level-item"><a class="link-muted" href="/categories/%E5%AF%B9%E8%AF%9D/">对话</a></span><span class="level-item">6 分钟 读完 (大约 928 个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Recipes for building an open-domain chatbot</h1><div class="content"><p>2020年4月30日，Facebook 的人工智能和机器学习部门 Facebook AI Research（FAIR）详细介绍了一个名为 Blender 的综合人工智能聊天机器人框架。</p>
+<p>FAIR 声称，目前可以在 GitHub 上以开源方式获得的 Blender，是有史以来最强大的开放域聊天机器人，它比生成对话的现有方法更有“人情味”。</p>
+<p>FAIR 表示，Blender 是多年研究的巅峰之作，它将移情、知识和个性结合到一个系统中。为此，受益于改进的解码和技能混合技术的基础模型，包含了多达 94 亿个参数（定义特定问题上的技能配置变量），是之前系统的 3.6 倍。</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Stephen Roller Emily Dinan Naman Goyal Da Ju</span><br><span class="line">Mary Williamson Yinhan Liu∗ Jing Xu Myle Ott</span><br><span class="line">Kurt Shuster Eric M. Smith Y-Lan Boureau Jason Weston</span><br><span class="line">Facebook AI Research</span><br></pre></td></tr></table></figure>
+
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p>提出blender. 流程: Pre-training Ranking models –&gt; Pre-training Generative models –&gt; Fine-tuning. 预训练的两个部分使用的是Reddit数据集, Fine-tuning部分使用的是4个数据集. </p>
+<h1 id="Datasets"><a href="#Datasets" class="headerlink" title="Datasets"></a>Datasets</h1><ol>
+<li>pushshift.io Reddit. <ul>
+<li>1.50B comments totaling 56.8B label BPE tokens and 88.8B context tokens, 一共有1456亿BPE tokens. meena是450亿 word.</li>
+</ul>
+</li>
+<li>ConvAI2 (用于improved consistency)</li>
+<li>Wizard of Wikipedia (WoW) (知识型对话)</li>
+<li>Empathetic Dialogues (ED) (增加移情)</li>
+<li>Blended Skill Talk dataset (上述三者的混合)</li>
+</ol>
+<h1 id="Model-Structure"><a href="#Model-Structure" class="headerlink" title="Model Structure"></a>Model Structure</h1><p>三个模型,   90M, 2.7B and 9.4B parameter models. </p>
+<p><strong>encoder部分</strong>:</p>
+<p>poly-encoder architecture  Poly-encoders: Architectures and pre-training strategies for fast and accurate multi-sentence scoring. </p>
+<p>![image-20200801003146984](Recipes for building an open-domain chatbot/image-20200801003146984.png)</p>
+<p><strong>decoder部分</strong>:</p>
+<ol>
+<li>Retrieval (纯检索, 无生成)<ul>
+<li>给定对话历史(上下文)作为输入，检索系统通过对大量候选responses进行评分并输出得分最高的一个。通常，使用所有的训练集responses作为候选集。</li>
+</ul>
+</li>
+</ol>
+<ol start="2">
+<li><p>Generator (纯生成)</p>
+<ul>
+<li>Seq2Seq Transformer architecture ,三个模型,   90M, 2.7B and 9.4B parameter models.</li>
+</ul>
+</li>
+<li><p>Retrieve and Refine (检索拼一起, 生成)</p>
+<ul>
+<li>生成模型可能有问题, 例如怪话. 这里combine a retrieval step before generation, referred to as a retrieve and refine model (Weston et al., 2018). </li>
+</ul>
+</li>
+</ol>
+<p>这里使用两个变种: <strong>dialogue retrieval</strong> and <strong>knowledge retrieval</strong></p>
+<ul>
+<li><p>dialogue retrieval<br>首先使用1中的Retriever, 获取得分最高的历史上的response, 和当前用户的input拼接, 形成新的输入, 再去生成一个response. </p>
+</li>
+<li><p>knowledge retrieval<br>condition the generation on the retrieved knowledge, 相当于使用检索器获取知识库中的句子,和当前用户的input拼接, 形成新的输入, 再去生成一个response. 具体, 用的是 TF-IDF-based inverted index lookup over a Wikipedia dump.</p>
+</li>
+</ul>
+<p><strong>decoder方式</strong></p>
+<p>Beam Search Sampling.  top-k sampling 和 Meena 的sample-and-rank sampling.</p>
+<h1 id="Loss-functions"><a href="#Loss-functions" class="headerlink" title="Loss functions"></a>Loss functions</h1><ol>
+<li>Ranking for Retrieval. 数据集中的下一句话是明确的. 把下一句当做答案, 能训练一个检索器. </li>
+<li>Likelihood Training for Generation. 使用标准的Maximum Likelihood Estimation (MLE) 方法训练生成模型.</li>
+<li>α-blending for Retrieve and Refine. 说的是将检索到的句子以α%的概率替换为答案句子. </li>
+<li>Unlikelihood training for generation. 对负采样的句子做反似然. </li>
+</ol>
+<h1 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h1><p>ACUTE-Eval. evaluators are asked to make pairwise evaluations of complete dialogues. 两两对比型, 整个对话session判断, 哪一个更好. 见原文fig4</p>
+<h1 id="Train-details"><a href="#Train-details" class="headerlink" title="Train details"></a>Train details</h1><p>Our 256M parameter ranking model is identical to the pre-trained model released by &lt;Poly-encoders: Architectures and pre-training strategies for fast and accurate multi-sentence scoring.&gt;</p>
+<p>使用 Fairseq. 使用Megatron-LM style model parallelism. 使用ParlAI toolkit微调.</p>
+<p>预处理部分删掉了一些语料.</p>
+<ol>
+<li>The author is a known bot.</li>
+<li>It comes from a known non-English sub-reddit.</li>
+<li>The comment is marked as removed / deleted.</li>
+<li>It is longer than 2048 characters and does not contain spaces.</li>
+<li>It is longer than 128 BPE tokens.</li>
+<li>It is shorter than 5 characters.</li>
+<li>It contains a URL.</li>
+<li>It starts with a non-ASCII character.</li>
+<li>It is further than depth 7 in the thread.</li>
+</ol>
+<h1 id="Questions"><a href="#Questions" class="headerlink" title="Questions"></a>Questions</h1><p>Self-Chat ACUTE-Eval 怎么评价? </p>
+<h1 id="Rethinkings"><a href="#Rethinkings" class="headerlink" title="Rethinkings"></a>Rethinkings</h1><p>暂无.</p>
+<h1 id="Knowledge-Points"><a href="#Knowledge-Points" class="headerlink" title="Knowledge Points"></a>Knowledge Points</h1><p>poly-encoder architecture</p>
+<h1 id="Related-Resources"><a href="#Related-Resources" class="headerlink" title="Related Resources"></a>Related Resources</h1><p><a href="https://www.infoq.cn/article/NpPCkizGEVqQGkbKI0Dw">Facebook 开源聊天机器人 Blender，经 94 亿个参数强化训练，更具“人情味”</a></p>
+</div><div class="article-tags size-small is-uppercase mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Facebook/">Facebook</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/08/01/The%20Evolved%20Transformer/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">The Evolved Transformer</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/07/31/Towards%20a%20Human-like%20Open-Domain%20Chatbot/"><span class="level-item">Towards a Human-like Open-Domain Chatbot</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="comment-container"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.css"><script src="https://cdn.jsdelivr.net/npm/gitalk@1.6.2/dist/gitalk.min.js"></script><script>var gitalk = new Gitalk({
+            id: '02bd05d0954fc4c948699dafc6afcb63',
+            repo: 'https://JimXiongGM.github.io',
+            owner: 'JimXiongGM',
+            clientID: 'd8736e9d3ef5dc048958',
+            clientSecret: '4010ee9eda9f22be9b5b4494521751b7f1eec2d5',
+            admin: ["JimXiongGM"],
+            createIssueManually: false,
+            distractionFreeMode: false,
+            perPage: 20,
+            pagerDirection: 'last',
+            
+            
+            enableHotKey: true
+        })
+        gitalk.render('comment-container')</script></div></div></div><!--!--><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/panda.jpg" alt="Jim Blog" height="28"></a><p class="size-small"><span>&copy; 2020 Jim Xiong</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'http://yoursite.com',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" defer></script><script>window.addEventListener("load", function() {
+            document.querySelectorAll('[role="article"] > .content').forEach(function(element) {
+                renderMathInElement(element);
+            });
+        });</script><div id="outdated"><h6>Your browser is out-of-date!</h6><p>Update your browser to view this website correctly.&amp;npsb;<a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p><p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">×</a></p></div><script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script><script>window.addEventListener("load", function () {
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'object-fit' // display on IE11 or below
+            });
+        });</script><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
